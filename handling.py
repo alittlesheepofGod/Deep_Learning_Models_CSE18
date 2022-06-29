@@ -5,6 +5,25 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import seaborn as sns 
 
+# import libraries 
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import os, re, time, math, tqdm, itertools
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+import plotly.offline as pyo
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import LabelEncoder
+from sklearn.neural_network import MLPClassifier
+import keras
+from keras.layers import Conv2D, Conv1D, MaxPooling2D, MaxPooling1D, Flatten, BatchNormalization, Dense
+from keras.utils.np_utils import to_categorical
+from keras.models import Sequential
+from keras.callbacks import CSVLogger, ModelCheckpoint
+
 # path to dataset 
 PATH_TO_DATASET = "/mnt/d/project-chau/cse-cic-ids2018/dataset_repo2/processed_first_final_dataset_benign_malicious_of_10_days_2.csv"
 
@@ -30,19 +49,99 @@ dataset = dataset.drop(['Flow ID', 'Src IP', 'Dst IP', 'Src Port'], axis = 1)
 # print dataset after drop columns with object data type and Src Port column due to many missing values
 print(dataset.info(verbose=True, max_cols=True, null_counts=True))
 
-# get count of missing values in the dataset 
-print(dataset.isnull().sum())
+# # get count of missing values in the dataset 
+# print(dataset.isnull().sum())
 
-# print out columns of dataset/dataframe 
-print(dataset.columns)
+# # print out columns of dataset/dataframe 
+# print(dataset.columns)
 
-# describe predictors variables 
-print(dataset.describe())
+# # describe predictors variables 
+# print(dataset.describe())
 
-# draw scatter plot 
-dataset.plot.scatter(x = 'Flow Duration', y = 'Tot Fwd Pkts', c = 'Label', colormap='viridis')
+# # draw scatter plot 
+# dataset.plot.scatter(x = 'Flow Duration', y = 'Tot Fwd Pkts', c = 'Label', colormap='viridis')
 
-# visualize patterns in the data 
-dataset.corr()
+# # visualize patterns in the data 
+# dataset.corr()
 
+# check the shape of the dataset dataframe
+print("shape of dataset : ", dataset.shape)
+print("\n")
+
+# check the number of values for labels 
+print("the number of values for labels : ", dataset['Label'].value_counts())
+
+# Data Visualizations 
+
+# After getting some useful information about our data, we now make visuals of our data to see how 
+# the trend in our data goes like. The visuals include bar plots, distribution plots, scatter plots, etc. 
+sns.set(rc={'figure.figsize':(12, 6)})
+plt.xlabel('Attack Type')
+sns.set_theme()
+ax = sns.countplot(x='Label', data = dataset)
+ax.set(xlabel='Attack Type', ylabel='Number of Attack and Benign')
+plt.show()
+
+# shaping the data for CNN
+
+"""
+For applying a convolutional neural network on our data, we will have to follow following steps:
+
+- separate the data of each of the labels
+- create a numerical matrix representation of labels
+- apply resampling on data so that can make the distribution equal for all labels 
+- create X (predictor) and Y (target) variables 
+- split the data into train and test sets 
+- make data multi-dimensional for CNN
+- apply CNN on data --> on separated branch
+
+"""
+
+# make 3 separate datasets for 3 feature labels 
+data_0 = dataset[dataset['Label'] == 0]
+data_1 = dataset[dataset['Label'] == 1]
+
+# make benign feature 
+y_0 = np.zeros(data_0.shape[0])
+y_benign = pd.DataFrame(y_0)
+
+# make attack feature 
+y_1 = np.ones(data_1.shape[0])
+y_attack = pd.DataFrame(y_1)
+
+# merging the original dataframe 
+X = pd.concat([data_0, data_1], sort = True)
+y = pd.concat([y_benign, y_attack], sort = True)
+
+# Data augmentation 
+
+from sklearn.utils import resample 
+
+data_0_resample = resample(data_0, n_samples = 150000, random_state = 123, replace = True)
+data_1_resample = resample(data_1, n_samples = 150000, random_state = 123, replace = True)
+
+train_dataset = pd.concat([data_0_resample, data_1_resample])
+train_dataset.head(2)
+
+# viewing the distribution of intrusion attacks in our dataset 
+plt.figure(figsize = (10, 8))
+circle = plt.Circle((0, 0), 0.7, color = 'white')
+plt.title('Intrusion Attack Type Distribution')
+plt.pie(train_dataset['Label'].value_counts(), labels = [0, 1], colors = ['blue', 'green'])
+p = plt.gcf()
+p.gca().add_artist(circle)
+
+# making X & Y Variables (CNN)
+test_dataset = train_dataset.sample(frac=0.2)
+target_train = train_dataset['Label']
+target_test = test_dataset['Label']
+target_train.unique(), target_test.unique()
+
+y_train = to_categorical(target_train, num_classes = 2)
+y_test = to_categorical(target_test, num_classes = 2)
+
+# Data Splicing 
+# data into train & test sets. training data used for training model, test data used 
+# to check the performance of model on unseen dataset. 
+# 80% for training and 20% for testing purpose.
 
