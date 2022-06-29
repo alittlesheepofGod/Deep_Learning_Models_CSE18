@@ -39,3 +39,9 @@ print(dataset.columns)
 # describe predictors variables 
 print(dataset.describe())
 
+# draw scatter plot 
+dataset.plot.scatter(x = 'Flow Duration', y = 'Tot Fwd Pkts', c = 'Label', colormap='viridis')
+
+# visualize patterns in the data 
+dataset.corr()
+
