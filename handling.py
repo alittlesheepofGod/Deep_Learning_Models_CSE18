@@ -144,4 +144,14 @@ y_test = to_categorical(target_test, num_classes = 2)
 # data into train & test sets. training data used for training model, test data used 
 # to check the performance of model on unseen dataset. 
 # 80% for training and 20% for testing purpose.
+train_dataset = train_dataset.drop(columns = ["Protocol_6", "Protocol_17", "PSH Flag Cnt","Init Fwd Win Byts", "Label"], axis = 1)
+test_dataset = test_dataset.drop(columns = ["Protocol_6", "Protocol_17", "PSH Flag Cnt","Init Fwd Win Byts", "Label"], axis = 1)
+
+# making train & test splits 
+X_train = train_dataset.iloc[:, : -1].values 
+X_test = test_dataset.iloc[:, : -1].values 
+
+# reshape the data for CNN 
+X_train = X_train.reshape(len(X_train), X_train.shape[1], 1)
+X_test = X_test.reshape(len(X_test), X_test.shape[1], 1)
 
