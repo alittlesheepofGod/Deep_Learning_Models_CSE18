@@ -1,7 +1,7 @@
 # import libraries
 from keras.models import Sequential
 from keras.callbacks import CSVLogger, ModelCheckpoint
-from keras.layers import Conv2D, Conv1D, MaxPooling2D, MaxPooling1D, Flatten, BatchNormalization, Dense
+from keras.layers import Conv2D, Conv1D, MaxPooling2D, MaxPooling1D, Flatten, BatchNormalization, Dense, AveragePooling1D, GlobalAveragePooling1D
 import plotly.express as px
 import plotly.offline as pyo
 from sklearn.model_selection import train_test_split
@@ -33,35 +33,48 @@ X_test = np.resize(X_test, (X_test.shape[0], 72, 1))
 # CNN model
 def model():
     model = Sequential()
-    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
     model.add(BatchNormalization())
 
     # adding a pooling layer
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(BatchNormalization())
+    model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(BatchNormalization())
+    model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
 
     model.add(Flatten())
-    model.add(Dense(64, activation='sigmoid'))
+    model.add(Dense(128, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(Dense(128, activation='sigmoid'))
     model.add(BatchNormalization())
+    model.add(Dense(128, activation='sigmoid'))
+    model.add(BatchNormalization())
+    model.add(Dense(64, activation='sigmoid'))
+    model.add(BatchNormalization())
+    model.add(Dense(64, activation='sigmoid'))
+    model.add(BatchNormalization())
     model.add(Dense(2, activation='sigmoid'))
 
-    # opt = SGD(lr = 0.01, momentum = 0.9, decay = 0.01)
-    opt = Adagrad()
+    opt = SGD(lr = 0.01, momentum = 0.9, decay = 0.01)
+    # opt = Adagrad()
 
     model.compile(loss='binary_crossentropy', optimizer = opt, metrics=['accuracy'])
     return model
