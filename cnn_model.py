@@ -13,6 +13,9 @@ import keras
 import os, re, time, math, tqdm, itertools
 import numpy as np
 import matplotlib.pyplot as plt
+from tensorflow.keras.optimizers import SGD
+from tensorflow.keras.optimizers import RMSprop
+from tensorflow.keras.optimizers import Adagrad
 
 # import module handling
 import handling 
@@ -30,30 +33,44 @@ X_test = np.resize(X_test, (X_test.shape[0], 72, 1))
 # CNN model
 def model():
     model = Sequential()
-    model.add(Conv1D(filters=64, kernel_size=6, activation='relu', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
     model.add(BatchNormalization())
 
     # adding a pooling layer
-    model.add(MaxPooling1D(pool_size=(3), strides=2, padding='same'))
+    model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
     model.add(BatchNormalization())
-    model.add(MaxPooling1D(pool_size=(3), strides=2, padding='same'))
-    model.add(Conv1D(filters=64, kernel_size=6, activation='relu', padding='same', input_shape=(72, 1)))
+    model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
+    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
     model.add(BatchNormalization())
-    model.add(MaxPooling1D(pool_size=(3), strides=2, padding='same'))
+    model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
+    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(BatchNormalization())
+    model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
+    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(BatchNormalization())
+    model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
+    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(BatchNormalization())
+    model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
 
     model.add(Flatten())
-    model.add(Dense(64, activation='relu'))
-    model.add(Dense(64, activation='relu'))
-    model.add(Dense(2, activation='softmax'))
+    model.add(Dense(64, activation='sigmoid'))
+    model.add(BatchNormalization())
+    model.add(Dense(128, activation='sigmoid'))
+    model.add(BatchNormalization())
+    model.add(Dense(2, activation='sigmoid'))
 
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    # opt = SGD(lr = 0.01, momentum = 0.9, decay = 0.01)
+    opt = Adagrad()
+
+    model.compile(loss='binary_crossentropy', optimizer = opt, metrics=['accuracy'])
     return model
     # adding a pooling layer 
 
 model = model()
 model.summary()
 
-his = model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_test, y_test))
+his = model.fit(X_train, y_train, epochs=100, batch_size=64, validation_data=(X_test, y_test))
 
 # Visualization of Results (CNN)
 # Let's make a graphical visualization of results obtained by applying CNN to our data 
