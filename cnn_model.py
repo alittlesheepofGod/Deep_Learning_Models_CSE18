@@ -21,4 +21,4 @@ X_test = handling.X_test
 # CNN model
 def model():
     model = Sequential()
-
+    
