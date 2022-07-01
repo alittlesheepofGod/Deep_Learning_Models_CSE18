@@ -1,7 +1,7 @@
 # import libraries
 from keras.models import Sequential
 from keras.callbacks import CSVLogger, ModelCheckpoint
-from keras.layers import Conv2D, Conv1D, MaxPooling2D, MaxPooling1D, Flatten, BatchNormalization, Dense, AveragePooling1D, GlobalAveragePooling1D
+from keras.layers import Conv2D, Conv1D, MaxPooling2D, MaxPooling1D, Flatten, BatchNormalization, Dense
 import plotly.express as px
 import plotly.offline as pyo
 from sklearn.model_selection import train_test_split
@@ -16,6 +16,9 @@ import matplotlib.pyplot as plt
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.optimizers import RMSprop
 from tensorflow.keras.optimizers import Adagrad
+from sklearn.preprocessing import Normalizer
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 
 # import module handling
 import handling 
@@ -26,6 +29,34 @@ X_test = handling.X_test
 y_train = handling.y_train
 y_test = handling.y_test
 
+# resize 
+X_train = np.resize(X_train, (X_train.shape[0], X_train.shape[1]))
+X_test = np.resize(X_test, (X_test.shape[0], X_train.shape[1]))
+
+# normalizer
+scaler = Normalizer().fit(X_train)
+X_train = scaler.transform(X_train)
+scaler = Normalizer().fit(X_test)
+X_test = scaler.transform(X_test)
+
+# standard scaler 
+s = StandardScaler()
+s.fit(X_train)
+X_train = s.transform(X_train)
+X_test = s.transform(X_test)
+
+# increase features for cnn to 72 features:
+X_train = np.resize(X_train, (X_train.shape[0], 72))
+X_test = np.resize(X_test, (X_test.shape[0], 72))
+
+#newcode pca train 
+pca=PCA(n_components=72)
+pca.fit(X_train)
+x_train_pca=pca.transform(X_train)
+#newcode pca test
+pca.fit(X_test)
+x_test_pca=pca.transform(X_test) 
+
 # increase features for cnn to 72 features:
 X_train = np.resize(X_train, (X_train.shape[0], 72, 1))
 X_test = np.resize(X_test, (X_test.shape[0], 72, 1))
@@ -33,30 +64,29 @@ X_test = np.resize(X_test, (X_test.shape[0], 72, 1))
 # CNN model
 def model():
     model = Sequential()
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
-    model.add(BatchNormalization())
-
+    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
     # adding a pooling layer
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
 
@@ -64,12 +94,6 @@ def model():
     model.add(Dense(128, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(Dense(128, activation='sigmoid'))
-    model.add(BatchNormalization())
-    model.add(Dense(128, activation='sigmoid'))
-    model.add(BatchNormalization())
-    model.add(Dense(64, activation='sigmoid'))
-    model.add(BatchNormalization())
-    model.add(Dense(64, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(Dense(2, activation='sigmoid'))
 
@@ -83,11 +107,11 @@ def model():
 model = model()
 model.summary()
 
-his = model.fit(X_train, y_train, epochs=100, batch_size=64, validation_data=(X_test, y_test))
+his = model.fit(X_train, y_train, epochs=10, batch_size=64, validation_data=(X_test, y_test), verbose = 1)
 
 # Visualization of Results (CNN)
 # Let's make a graphical visualization of results obtained by applying CNN to our data 
-scores = model.evaluate(X_test, y_test)
+scores = model.evaluate(X_test, y_test, verbose = 1)
 print("%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
 
 # check history of model 
@@ -123,3 +147,4 @@ model can perform are 30.
 
 
 """
+
