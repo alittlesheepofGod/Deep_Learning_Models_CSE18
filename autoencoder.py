@@ -156,7 +156,7 @@ autoencoder_train = autoencoder.fit(train_X, train_ground, batch_size=batch_size
 # plot loss function : training loss and validation loss 
 loss = autoencoder_train.history['loss']
 val_loss = autoencoder_train.history['val_loss']
-epochs = range(200)
+epochs = range(10)
 plt.figure()
 plt.plot(epochs, loss, 'bo', label='Training loss')
 plt.plot(epochs, val_loss, 'b', label='Validation loss')
@@ -218,5 +218,88 @@ def fc(enco):
 encode = encoder(input_img)
 full_model = Model(input_img, fc(encode))
 
-for l1, l2 
+for l1, l2 in zip(full_model.layers[0:19], autoencoder.layers[0:19]):
+    l1.set_weights(l2.get_weights())
+
+# check weights of encoder part of new full_model versus weights of encoder part of trained autoencoder 
+import unittest 
+
+#
+unittest.TestCase.assertEqual(autoencoder.get_weights()[0][1], full_model.get_weights()[0][1], "unequal")
+
+# freeze the encoder layers 
+for layer in full_model.layers[0:19]:
+    layer.trainable = False 
+
+# let's compile the model!
+full_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
+
+# let's print the summary of the model 
+full_model.summary()
+
+# train the model 
+classify_train = full_model.fit(train_X, train_label, batch_size=64, epochs=10, verbose=1, validation_data=(valid_X, valid_label))
+
+# save classification model
+full_model.save_weights('autoencoder_classification.h5')
+
+# re-train model by making the first nineteen layers trainable as True instead of keeping them False!
+for layer in full_model.layers[0:19]:
+    layer.trainable = True 
+
+full_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
+
+# let's train the entire model for one last time!
+classify_train = full_model.fit(train_X, train_label, batch_size=64, epochs=10, verbose=1, validation_data=(valid_X, valid_label))
+
+# save model the last time
+full_model.save_weights('classification_complete.h5')
+
+# plot accuracy versus loss
+accuracy = classify_train.history['acc']
+val_accuracy = classify_train.history['val_acc']
+loss = classify_train.history['loss']
+val_loss = classify_train.history['val_loss']
+epochs = range(len(accuracy))
+plt.plot(epochs, accuracy, 'bo', label='Training accuracy')
+plt.plot(epochs, val_accuracy, 'b', label='Validation accuracy')
+plt.title('Training and validation accuracy')
+plt.legend()
+plt.figure()
+plt.plot(epochs, loss, 'bo', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.legend()
+plt.show()
+
+# evaluate model on test set 
+test_eval = full_model.evaluate(test_data, test_Y_one_hot, verbose=0)
+
+print('Test loss: ', test_eval[0])
+print('Test accuracy: ', test_eval[1])
+
+# predict label 
+predicted_classes = full_model.predict(test_data)
+predicted_classes = np.argmax(np.round(predicted_classes),axis=1)
+predicted_classes.shape, test_labels.shape
+
+correct = np.where(predicted_classes==test_labels)[0]
+print("Found %d correct labels" % len(correct))
+for i, correct in enumerate(correct[:9]):
+    plt.subplot(3,3,i+1)
+    plt.imshow(test_data[correct].reshape(28,28), cmap='gray', interpolation='none')
+    plt.title("Predicted {}, Class {}".format(predicted_classes[correct], test_labels[correct]))
+    plt.tight_layout()
+
+incorrect = np.where(predicted_classes!=test_labels)[0]
+print("Found %d incorrect labels" % len(incorrect))
+for i, incorrect in enumerate(incorrect[:9]):
+    plt.subplot(3,3,i+1)
+    plt.imshow(test_data[incorrect].reshape(28,28), cmap='gray', interpolation='none')
+    plt.title("Predicted {}, Class {}".format(predicted_classes[incorrect], test_labels[incorrect]))
+    plt.tight_layout()
+
+from sklearn.metrics import classification_report
+target_names = ["Class {}".format(i) for i in range(num_classes)]
+print(classification_report(test_labels, predicted_classes, target_names=target_names))
 
