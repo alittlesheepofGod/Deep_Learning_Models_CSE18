@@ -247,7 +247,7 @@ full_model.save_weights('autoencoder_classification.h5')
 for layer in full_model.layers[0:19]:
     layer.trainable = True 
 
-full_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
+full_model.compile(loss=keras.losses.categorical_crossentropy, optimizer='adam', metrics=['accuracy'])
 
 # let's train the entire model for one last time!
 classify_train = full_model.fit(train_X, train_label, batch_size=64, epochs=10, verbose=1, validation_data=(valid_X, valid_label))
@@ -256,8 +256,8 @@ classify_train = full_model.fit(train_X, train_label, batch_size=64, epochs=10, 
 full_model.save_weights('classification_complete.h5')
 
 # plot accuracy versus loss
-accuracy = classify_train.history['acc']
-val_accuracy = classify_train.history['val_acc']
+accuracy = classify_train.history['accuracy']
+val_accuracy = classify_train.history['val_accuracy']
 loss = classify_train.history['loss']
 val_loss = classify_train.history['val_loss']
 epochs = range(len(accuracy))
