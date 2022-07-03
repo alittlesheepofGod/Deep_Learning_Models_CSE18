@@ -225,14 +225,14 @@ for l1, l2 in zip(full_model.layers[0:19], autoencoder.layers[0:19]):
 import unittest 
 
 #
-unittest.TestCase.assertEqual(autoencoder.get_weights()[0][1], full_model.get_weights()[0][1], "unequal")
+# unittest.TestCase.assertEqual(autoencoder.get_weights()[0][1], full_model.get_weights()[0][1], "unequal")
 
 # freeze the encoder layers 
 for layer in full_model.layers[0:19]:
     layer.trainable = False 
 
 # let's compile the model!
-full_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
+full_model.compile(loss=keras.losses.categorical_crossentropy, optimizer='adam', metrics=['accuracy'])
 
 # let's print the summary of the model 
 full_model.summary()
