@@ -62,31 +62,31 @@ X_train = np.resize(X_train, (X_train.shape[0], 72, 1))
 X_test = np.resize(X_test, (X_test.shape[0], 72, 1))
 
 # CNN model
-def model():
+def model(n_filters):
     model = Sequential()
-    model.add(Conv1D(filters=64, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
+    model.add(Conv1D(filters=n_filters, kernel_size=3, activation='sigmoid', padding='same', input_shape=(72, 1)))
+    model.add(Conv1D(filters=n_filters, kernel_size=1, activation='sigmoid'))
     # adding a pooling layer
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
+    model.add(Conv1D(filters=n_filters, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
+    model.add(Conv1D(filters=n_filters, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
+    model.add(Conv1D(filters=n_filters, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
+    model.add(Conv1D(filters=n_filters, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
+    model.add(Conv1D(filters=n_filters, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
+    model.add(Conv1D(filters=n_filters, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
-    model.add(Conv1D(filters=128, kernel_size=1, activation='sigmoid'))
+    model.add(Conv1D(filters=n_filters, kernel_size=1, activation='sigmoid'))
     model.add(BatchNormalization())
     model.add(MaxPooling1D(pool_size=(3), strides=1, padding='same'))
 
@@ -104,15 +104,23 @@ def model():
     return model
     # adding a pooling layer 
 
-model = model()
-model.summary()
+# model = model()
+# model.summary()
 
-his = model.fit(X_train, y_train, epochs=10, batch_size=64, validation_data=(X_test, y_test), verbose = 1)
+# hyper-parameters 
+n_params = [8, 16, 32, 64, 128, 256]
 
 # Visualization of Results (CNN)
 # Let's make a graphical visualization of results obtained by applying CNN to our data 
-scores = model.evaluate(X_test, y_test, verbose = 1)
-print("%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
+for p in n_params:
+    scores = list()
+    for i in range(10):
+        model_ = model(p)
+        his = model_.fit(X_train, y_train, epochs=10, batch_size=64, validation_data=(X_test, y_test), verbose = 1)
+        score = model_.evaluate(X_test, y_test, verbose = 1)
+        score = score * 100.0 
+        scores.append(score)
+    print(scores, n_params)
 
 # check history of model 
 history = his.history
@@ -139,12 +147,10 @@ plt.legend()
 After training our deep CNN model on training data and validating it on validation data, it can be 
 interpreted that:
 
-+ Model was trained on 50 epochs and then on 30 epochs 
-+ CNN performed exceptionally well on training data and the accuracy was 99%
-+ Model accuracy was down to 83.55% on validation data after 50 iterations, and gave a good accuracy
-of 92% after 30 iterations. Thus, it can be interpreted that optimal number of iterations on which this
-model can perform are 30.
++ model 10 epochs : accuracy : 0.86
 
+-> chon number of filters 
+n_params = [8, 16, 32, 64, 128, 256]
 
 """
 
