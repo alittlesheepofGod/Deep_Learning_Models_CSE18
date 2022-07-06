@@ -29,7 +29,7 @@ def mean_field(X, model, mf_steps):
     hbias1, hbias2 = model['hbias1'], model['hbias2']
     mu1 = np.random.rand(W2.shape[0], X.shape[1])
     mu2 = np.random.rand(W2.shape[1], X.shape[1])
-    for i in xrange(mf_steps):
+    for i in range(mf_steps):
         mu1 = sigmoid(np.dot(W1.T, X) + np.dot(W2, mu2) + hbias1)
         mu2 = sigmoid(np.dot(W2.T, mu1) + hbias2)
     return mu1, mu2
@@ -37,7 +37,7 @@ def mean_field(X, model, mf_steps):
 def gibbs_sampling(h1, h2, v, model, gs_steps):
     W1, W2 = model['W1'], model['W2']
     vbias, hbias1, hbias2 = model['vbias'], model['hbias1'], model['hbias2']
-    for i in xrange(gs_steps):
+    for i in range(gs_steps):
         h1 = sigmoid(np.dot(W1.T, v) + np.dot(W2, h2) + hbias1)
         h1 = np.random.binomial(1, h1)
         h2 = sigmoid(np.dot(W2.T, h1) + hbias2)
@@ -82,14 +82,14 @@ def train_DBM(trainset=None, devset=None, seed=3, num_hidden1=100, num_hidden2=1
 
     train_error, dev_error = [], []
 
-    for epoch in xrange(epochs):
+    for epoch in range(epochs):
         train_cross_entropy = get_cross_entropy(X_train, model)
         dev_cross_entropy = get_cross_entropy(X_dev, model)
         print('Epoch %d: train %f  dev %f' % (epoch, train_cross_entropy, dev_cross_entropy))
         train_error.append(train_cross_entropy)
         dev_error.append(dev_cross_entropy)
 
-        for i in xrange(int(X_train.shape[1]/batch_size)):
+        for i in range(int(X_train.shape[1]/batch_size)):
             rows = np.random.permutation(X_train.shape[1])[:batch_size]
             X_batch = X_train[:, rows]  # mini-batch
 
@@ -111,14 +111,14 @@ def train_DBM(trainset=None, devset=None, seed=3, num_hidden1=100, num_hidden2=1
 
     # # draw cross entropy of train and dev
     draw_error_fig(epochs, train_error, dev_error)
-    draw_weights(W1)
+    draw_weights(W1, num_hidden1)
     draw_samples(insize, num_hidden1, num_hidden2, K, model)
     return train_error, dev_error
 
 
 def draw_error_fig(epochs, train_error, dev_error):
     fig, ax = plt.subplots()
-    epochs = [i for i in xrange(epochs)]
+    epochs = [i for i in range(epochs)]
 
     ax.plot(epochs, train_error, 'g', label='Train Cross Entropy')
     ax.plot(epochs, dev_error, 'b', label='Validation Cross Entropy')
@@ -137,7 +137,7 @@ def draw_weights(weight, num_hidden):
     W = np.reshape(W, (-1,28,28))
 
     fig = plt.figure()
-    for i in xrange(W.shape[0]):
+    for i in range(W.shape[0]):
         plt.subplot(10, 10, i+1)
         plt.axis('off')
         plt.imshow(W[i],cmap=plt.cm.binary)
