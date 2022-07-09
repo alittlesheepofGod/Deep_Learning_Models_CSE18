@@ -124,6 +124,10 @@ loss = history['loss']
 val_acc = history['val_accuracy']
 val_loss = history['val_loss']
 
+# draw configure matrix 
+
+
+
 # visualize training and val accuracy
 plt.figure(figsize=(10, 5))
 plt.title('Training and Validation Loss (CNN)')
