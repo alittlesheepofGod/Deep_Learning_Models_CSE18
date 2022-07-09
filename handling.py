@@ -8,7 +8,7 @@ from keras.utils.np_utils import to_categorical
 from sklearn.preprocessing import LabelEncoder
 
 # path to dataset 
-PATH_TO_DATASET = "/mnt/d/project-chau/cse-cic-ids2018/dataset_repo2/02-14-2018.csv"
+PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-14-2018.csv/02-14-2018.csv"
 
 # open dataset csv file by 'pandas'
 dataset = pd.read_csv(PATH_TO_DATASET)
