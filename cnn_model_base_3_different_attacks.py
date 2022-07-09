@@ -107,7 +107,7 @@ def model():
 model = model()
 model.summary()
 
-his = model.fit(X_train, y_train, epochs=10, batch_size=64, validation_data=(X_test, y_test), verbose = 1)
+his = model.fit(X_train, y_train, epochs=1, batch_size=64, validation_data=(X_test, y_test), verbose = 1)
 
 # Visualization of Results (CNN)
 # Let's make a graphical visualization of results obtained by applying CNN to our data 
@@ -125,6 +125,30 @@ val_acc = history['val_accuracy']
 val_loss = history['val_loss']
 
 # draw configure matrix 
+from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+y_pred = model.predict(X_test)
+labels = ["Cats", "Dogs", "Horses"]
+
+# convert to categorical 
+from keras.utils.np_utils import to_categorical
+y_predict = to_categorical(np.argmax(y_pred, 1), dtype="int64")
+
+# convert one-hot encoding to integer
+
+
+
+cm = confusion_matrix(y_test, y_predict)
+
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
+
+disp.plot(cmap=plt.cm.Blues)
+plt.show()
+
 
 
 
