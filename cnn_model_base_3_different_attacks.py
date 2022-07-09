@@ -132,8 +132,8 @@ from keras.utils.np_utils import to_categorical
 y_predict = to_categorical(np.argmax(y_pred, 1), dtype="int64")
 # convert one-hot encoding to integer
 y_predict = np.argmax(y_predict, axis=1)
-y_pred = np.argmax(y_pred, axis=1)
-cm = confusion_matrix(y_pred, y_predict)
+y_test = np.argmax(y_test, axis=1)
+cm = confusion_matrix(y_test, y_predict)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
 disp.plot(cmap=plt.cm.Blues)
 plt.show()
@@ -167,12 +167,10 @@ plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 
-# print out accuracy and 
-
-
-
-
-
+# print out accuracy for each class
+matrix = confusion_matrix(y_test, y_predict)
+print("accuracy of benign, FTP-BruteForce, SSH-BruteForce")
+print(matrix.diagonal()/matrix.sum(axis=1))
 
 # Conclusion after CNN Training 
 
