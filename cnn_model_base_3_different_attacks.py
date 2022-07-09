@@ -129,28 +129,18 @@ from sklearn.metrics import ConfusionMatrixDisplay
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import numpy as np
-
-
 y_pred = model.predict(X_test)
-labels = ["Cats", "Dogs", "Horses"]
-
+labels = ["Benign", "FTP-BruteForce", "SSH-Bruteforce"]
 # convert to categorical 
 from keras.utils.np_utils import to_categorical
 y_predict = to_categorical(np.argmax(y_pred, 1), dtype="int64")
-
 # convert one-hot encoding to integer
-
-
-
-cm = confusion_matrix(y_test, y_predict)
-
+y_predict = np.argmax(y_predict, axis=1)
+y_pred = np.argmax(y_pred, axis=1)
+cm = confusion_matrix(y_pred, y_predict)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
-
 disp.plot(cmap=plt.cm.Blues)
 plt.show()
-
-
-
 
 # visualize training and val accuracy
 plt.figure(figsize=(10, 5))
