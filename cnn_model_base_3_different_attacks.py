@@ -172,6 +172,29 @@ matrix = confusion_matrix(y_test, y_predict)
 print("accuracy of benign, FTP-BruteForce, SSH-BruteForce")
 print(matrix.diagonal()/matrix.sum(axis=1))
 
+# print out False Alarm Rate 
+print("False Alarm Rate is : ")
+FAR = 0
+for i in range(1, len(cm[0])):
+    FAR += cm[0][i]
+FAR = FAR / (cm[0][0] + FAR)
+print(FAR)
+
+# print detection rate
+print("Detection Rate is : ")
+DTrate = 0
+for i in range(1, len(cm)):
+    for j in range(0, len(cm[i])):
+        DTrate += cm[i][j]
+
+sum = 0
+for i in range(1, len(cm)):
+    sum += cm[i][i]
+
+DTrate = sum / DTrate 
+
+print(DTrate)
+
 # Conclusion after CNN Training 
 
 """
