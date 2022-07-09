@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np 
 
 # load pima indians dataset
-dataset = np.loadtxt("/mnt/d/project/dataset/pima-indians-diabetes/pima-indians-diabetes.csv", delimiter=",")
+dataset = np.loadtxt("/mnt/d/project/dataset/pima-indians-diabetes/pima-indians-diabetes.data.csv", delimiter=",")
 # split into input (X) and output (Y) variables
 X = dataset[:,0:8]
 Y = dataset[:,8]

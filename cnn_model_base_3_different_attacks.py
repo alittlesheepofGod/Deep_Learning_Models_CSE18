@@ -107,22 +107,18 @@ def model():
 model = model()
 model.summary()
 
-his = model.fit(X_train, y_train, epochs=1, batch_size=64, validation_data=(X_test, y_test), verbose = 1)
+history = model.fit(X_train, y_train, epochs=10, batch_size=64, validation_data=(X_test, y_test), verbose = 0)
 
 # Visualization of Results (CNN)
 # Let's make a graphical visualization of results obtained by applying CNN to our data 
 scores = model.evaluate(X_test, y_test, verbose = 1)
 print("%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
 
-# check history of model 
-history = his.history
-history.keys()
-
-epochs = range(1, len(history['loss']) + 1)
-acc = history['accuracy']
-loss = history['loss']
-val_acc = history['val_accuracy']
-val_loss = history['val_loss']
+# epochs = range(1, len(history['loss']) + 1)
+# acc = history['accuracy']
+# loss = history['loss']
+# val_acc = history['val_accuracy']
+# val_loss = history['val_loss']
 
 # draw configure matrix 
 from sklearn.metrics import ConfusionMatrixDisplay
@@ -143,13 +139,40 @@ disp.plot(cmap=plt.cm.Blues)
 plt.show()
 
 # visualize training and val accuracy
-plt.figure(figsize=(10, 5))
-plt.title('Training and Validation Loss (CNN)')
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.plot(epochs, loss, label='loss', color='g')
-plt.plot(epochs, val_loss, label='val_loss', color='r')
-plt.legend()
+# plt.figure(figsize=(10, 5))
+# plt.title('Training and Validation Loss (CNN)')
+# plt.xlabel('Epochs')
+# plt.ylabel('Loss')
+# plt.plot(epochs, loss, label='loss', color='g')
+# plt.plot(epochs, val_loss, label='val_loss', color='r')
+# plt.legend()
+
+# list all data in history
+print(history.history.keys())
+# summarize history for accuracy
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
+
+# summarize history for loss
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
+
+# print out accuracy and 
+
+
+
+
+
 
 # Conclusion after CNN Training 
 
