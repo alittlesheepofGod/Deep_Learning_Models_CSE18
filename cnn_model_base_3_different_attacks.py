@@ -129,7 +129,7 @@ import numpy as np
 y_pred = model.predict(X_test)
 # labels = ["Benign", "DoS attacks-GoldenEye", "DoS attacks-Slowloris"]
 # labels = ["Benign", "DoS attacks-SlowHTTPTest", "DoS attacks-Hulk"]
-labels = ["Benign", "DoS attacks-LOIC-HTTP"]
+labels = ["Benign", "DDOS attacks-LOIC-UDP", "DDOS attack-HOIC"]
 
 # convert to categorical 
 from keras.utils.np_utils import to_categorical
@@ -174,7 +174,8 @@ plt.show()
 # print out accuracy for each class
 matrix = confusion_matrix(y_test, y_predict)
 # print("accuracy of benign, DoS attacks-SlowHTTPTest, DoS attacks-Hulk")
-print("accuracy of benign, DoS attacks-LOIC-HTTP")
+# print("accuracy of benign, DoS attacks-LOIC-HTTP")
+print(" accuracy of Benign, DDOS attacks-LOIC-UDP, DDOS attack-HOIC: ")
 print(matrix.diagonal()/matrix.sum(axis=1))
 
 # print out False Alarm Rate 

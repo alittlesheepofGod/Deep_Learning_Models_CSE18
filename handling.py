@@ -16,12 +16,7 @@ from sklearn.preprocessing import LabelEncoder
 
 # PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-20-2018.csv/02-20-2018-01.csv"
 
-PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-20-2018.csv/02-20-2018-03.csv"
-# PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-20-2018.csv/02-20-2018-04.csv"
-# PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-20-2018.csv/02-20-2018-05.csv"
-# PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-20-2018.csv/02-20-2018-06.csv"
-# PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-20-2018.csv/02-20-2018-07.csv"
-# PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-20-2018.csv/02-20-2018-08.csv"
+PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-21-2018.csv/02-21-2018.csv"
 
 # open dataset csv file by 'pandas'
 dataset = pd.read_csv(PATH_TO_DATASET)
@@ -101,7 +96,7 @@ dataset['Label'].unique()
 # make 3 separate datasets for 3 feature labels 
 data_0 = dataset[dataset['Label'] == 0]
 data_1 = dataset[dataset['Label'] == 1]
-# data_2 = dataset[dataset['Label'] == 2]
+data_2 = dataset[dataset['Label'] == 2]
 
 # make benign feature 
 y_0 = np.zeros(data_0.shape[0])
@@ -110,15 +105,15 @@ y_benign = pd.DataFrame(y_0)
 # make attack feature 
 y_1 = np.ones(data_1.shape[0])
 y_attack_1 = pd.DataFrame(y_1)
-# y_2 = np.ones(data_2.shape[0])
-# y_attack_2 = pd.DataFrame(y_2)
+y_2 = np.ones(data_2.shape[0])
+y_attack_2 = pd.DataFrame(y_2)
 
 # merging the original dataframe 
-# X = pd.concat([data_0, data_1, data_2], sort = True)
-X = pd.concat([data_0, data_1], sort = True)
+X = pd.concat([data_0, data_1, data_2], sort = True)
+# X = pd.concat([data_0, data_1], sort = True)
 
-# y = pd.concat([y_benign, y_attack_1, y_attack_2], sort = True)
-y = pd.concat([y_benign, y_attack_1], sort = True)
+y = pd.concat([y_benign, y_attack_1, y_attack_2], sort = True)
+# y = pd.concat([y_benign, y_attack_1], sort = True)
 
 # Data augmentation 
 
@@ -126,10 +121,10 @@ from sklearn.utils import resample
 
 data_0_resample = resample(data_0, n_samples = 20000, random_state = 123, replace = True)
 data_1_resample = resample(data_1, n_samples = 20000, random_state = 123, replace = True)
-# data_2_resample = resample(data_2, n_samples = 20000, random_state = 123, replace = True)
+data_2_resample = resample(data_2, n_samples = 20000, random_state = 123, replace = True)
 
-# train_dataset = pd.concat([data_0_resample, data_1_resample, data_2_resample])
-train_dataset = pd.concat([data_0_resample, data_1_resample])
+train_dataset = pd.concat([data_0_resample, data_1_resample, data_2_resample])
+# train_dataset = pd.concat([data_0_resample, data_1_resample])
 train_dataset.head(2)
 
 # viewing the distribution of intrusion attacks in our dataset 
@@ -140,7 +135,7 @@ plt.title('Intrusion Attack Type Distribution')
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-GoldenEye', 'DoS attacks-Slowloris'], colors = ['blue', 'green', 'yellow'])
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-SlowHTTPTest', 'DoS attacks-Hulk'], colors = ['blue', 'green', 'yellow'])
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-SlowHTTPTest', 'DoS attacks-Hulk'], colors = ['blue', 'green', 'yellow'])
-plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-LOIC-HTTP'], colors = ['blue', 'green'])
+plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DDOS attacks-LOIC-UDP', 'DDOS attack-HOIC'], colors = ['blue', 'green'])
 
 p = plt.gcf()
 p.gca().add_artist(circle)
@@ -161,8 +156,12 @@ y_test = to_categorical(target_test, num_classes = 3)
 # train_dataset = train_dataset.drop(columns = ["Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
 # test_dataset = test_dataset.drop(columns = ["Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
 
-train_dataset = train_dataset.drop(columns = ["Flow ID", "Dst IP", "Src IP" ,"Src Port", "Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
-test_dataset = test_dataset.drop(columns = ["Flow ID" , "Dst IP", "Src IP" ,"Src Port", "Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
+# train_dataset = train_dataset.drop(columns = ["Flow ID", "Dst IP", "Src IP" ,"Src Port", "Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
+# test_dataset = test_dataset.drop(columns = ["Flow ID" , "Dst IP", "Src IP" ,"Src Port", "Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
+
+train_dataset = train_dataset.drop(columns = ["Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
+test_dataset = test_dataset.drop(columns = ["Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
+
 
 # making train & test splits 
 X_train = train_dataset.iloc[:, : -1].values 
