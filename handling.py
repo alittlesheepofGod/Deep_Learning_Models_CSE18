@@ -9,7 +9,9 @@ from sklearn.preprocessing import LabelEncoder
 
 # path to dataset 
 # PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-14-2018.csv/02-14-2018.csv"
-PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-15-2018.csv/02-15-2018.csv"
+# PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-15-2018.csv/02-15-2018.csv"
+# PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-16-2018.csv/02-16-2018.csv"
+PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-20-2018.csv/02-20-2018.csv"
 
 # open dataset csv file by 'pandas'
 dataset = pd.read_csv(PATH_TO_DATASET)
@@ -121,7 +123,9 @@ plt.figure(figsize = (10, 8))
 circle = plt.Circle((0, 0), 0.7, color = 'white')
 plt.title('Intrusion Attack Type Distribution')
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'FTP-BruteForce', 'SSH-Bruteforce'], colors = ['blue', 'green', 'yellow'])
-plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-GoldenEye', 'DoS attacks-Slowloris'], colors = ['blue', 'green', 'yellow'])
+# plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-GoldenEye', 'DoS attacks-Slowloris'], colors = ['blue', 'green', 'yellow'])
+# plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-SlowHTTPTest', 'DoS attacks-Hulk'], colors = ['blue', 'green', 'yellow'])
+plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-SlowHTTPTest', 'DoS attacks-Hulk'], colors = ['blue', 'green', 'yellow'])
 p = plt.gcf()
 p.gca().add_artist(circle)
 

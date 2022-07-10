@@ -126,7 +126,8 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import numpy as np
 y_pred = model.predict(X_test)
-labels = ["Benign", "DoS attacks-GoldenEye", "DoS attacks-Slowloris"]
+# labels = ["Benign", "DoS attacks-GoldenEye", "DoS attacks-Slowloris"]
+labels = ["Benign", "DoS attacks-SlowHTTPTest", "DoS attacks-Hulk"]
 # convert to categorical 
 from keras.utils.np_utils import to_categorical
 y_predict = to_categorical(np.argmax(y_pred, 1), dtype="int64")
@@ -169,7 +170,7 @@ plt.show()
 
 # print out accuracy for each class
 matrix = confusion_matrix(y_test, y_predict)
-print("accuracy of benign, DoS attacks-GoldenEye, DoS attacks-Slowloris")
+print("accuracy of benign, DoS attacks-SlowHTTPTest, DoS attacks-Hulk")
 print(matrix.diagonal()/matrix.sum(axis=1))
 
 # print out False Alarm Rate 
