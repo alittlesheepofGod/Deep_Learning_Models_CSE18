@@ -1,4 +1,5 @@
 # import libraries
+from turtle import clear
 from keras.models import Sequential
 from keras.callbacks import CSVLogger, ModelCheckpoint
 from keras.layers import Conv2D, Conv1D, MaxPooling2D, MaxPooling1D, Flatten, BatchNormalization, Dense
@@ -127,7 +128,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 y_pred = model.predict(X_test)
 # labels = ["Benign", "DoS attacks-GoldenEye", "DoS attacks-Slowloris"]
-labels = ["Benign", "DoS attacks-SlowHTTPTest", "DoS attacks-Hulk"]
+# labels = ["Benign", "DoS attacks-SlowHTTPTest", "DoS attacks-Hulk"]
+labels = ["Benign", "DoS attacks-LOIC-HTTP"]
+
 # convert to categorical 
 from keras.utils.np_utils import to_categorical
 y_predict = to_categorical(np.argmax(y_pred, 1), dtype="int64")
@@ -170,7 +173,8 @@ plt.show()
 
 # print out accuracy for each class
 matrix = confusion_matrix(y_test, y_predict)
-print("accuracy of benign, DoS attacks-SlowHTTPTest, DoS attacks-Hulk")
+# print("accuracy of benign, DoS attacks-SlowHTTPTest, DoS attacks-Hulk")
+print("accuracy of benign, DoS attacks-LOIC-HTTP")
 print(matrix.diagonal()/matrix.sum(axis=1))
 
 # print out False Alarm Rate 
