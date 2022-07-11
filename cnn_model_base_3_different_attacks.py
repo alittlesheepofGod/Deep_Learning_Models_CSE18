@@ -109,7 +109,7 @@ def model():
 model = model()
 model.summary()
 
-history = model.fit(X_train, y_train, epochs=100, batch_size=64, validation_data=(X_test, y_test), verbose = 1)
+history = model.fit(X_train, y_train, epochs=10, batch_size=64, validation_data=(X_test, y_test), verbose = 1)
 
 # Visualization of Results (CNN)
 # Let's make a graphical visualization of results obtained by applying CNN to our data 
