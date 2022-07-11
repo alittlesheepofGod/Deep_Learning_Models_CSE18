@@ -15,8 +15,10 @@ from sklearn.preprocessing import LabelEncoder
 """ because 02-20-2018.csv is too large, it is divided into 8 files  """
 
 # PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-20-2018.csv/02-20-2018-01.csv"
+# PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-21-2018.csv/02-21-2018.csv"
 
-PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-21-2018.csv/02-21-2018.csv"
+PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-22-2018.csv/02-22-2018.csv"
+
 
 # open dataset csv file by 'pandas'
 dataset = pd.read_csv(PATH_TO_DATASET)
@@ -135,7 +137,7 @@ plt.title('Intrusion Attack Type Distribution')
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-GoldenEye', 'DoS attacks-Slowloris'], colors = ['blue', 'green', 'yellow'])
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-SlowHTTPTest', 'DoS attacks-Hulk'], colors = ['blue', 'green', 'yellow'])
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-SlowHTTPTest', 'DoS attacks-Hulk'], colors = ['blue', 'green', 'yellow'])
-plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DDOS attacks-LOIC-UDP', 'DDOS attack-HOIC'], colors = ['blue', 'green'])
+plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DDOS attacks-LOIC-UDP', 'DDOS attack-HOIC'], colors = ['blue', 'green', 'yellow'])
 
 p = plt.gcf()
 p.gca().add_artist(circle)
