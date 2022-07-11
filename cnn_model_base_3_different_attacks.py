@@ -96,7 +96,8 @@ def model():
     model.add(BatchNormalization())
     model.add(Dense(128, activation='relu'))
     model.add(BatchNormalization())
-    model.add(Dense(4, activation='softmax'))  # number of node in dense layer represent for number of classes to classification
+    # model.add(Dense(4, activation='softmax'))  # number of node in dense layer represent for number of classes to classification
+    model.add(Dense(2, activation='sigmoid'))  # number of node in dense layer represent for number of classes to classification
 
     opt = SGD(lr = 0.01, momentum = 0.9, decay = 0.01)
     # opt = Adagrad()
@@ -108,7 +109,7 @@ def model():
 model = model()
 model.summary()
 
-history = model.fit(X_train, y_train, epochs=10, batch_size=64, validation_data=(X_test, y_test), verbose = 0)
+history = model.fit(X_train, y_train, epochs=100, batch_size=64, validation_data=(X_test, y_test), verbose = 1)
 
 # Visualization of Results (CNN)
 # Let's make a graphical visualization of results obtained by applying CNN to our data 
@@ -130,7 +131,8 @@ y_pred = model.predict(X_test)
 # labels = ["Benign", "DoS attacks-GoldenEye", "DoS attacks-Slowloris"]
 # labels = ["Benign", "DoS attacks-SlowHTTPTest", "DoS attacks-Hulk"]
 # labels = ["Benign", "DDOS attacks-LOIC-UDP", "DDOS attack-HOIC"]
-labels = ["Benign", "Brute Force -Web", "Brute Force -XSS", "SQL Injection"]
+# labels = ["Benign", "Brute Force -Web", "Brute Force -XSS", "SQL Injection"]
+labels = ["Benign", "Bot"]
 
 # convert to categorical 
 from keras.utils.np_utils import to_categorical
@@ -176,7 +178,8 @@ plt.show()
 matrix = confusion_matrix(y_test, y_predict)
 # print("accuracy of benign, DoS attacks-SlowHTTPTest, DoS attacks-Hulk")
 # print("accuracy of benign, DoS attacks-LOIC-HTTP")
-print(" accuracy of Benign, Brute Force -Web, Brute Force -XSS, SQL Injection: ") 
+# print(" accuracy of Benign, Brute Force -Web, Brute Force -XSS, SQL Injection: ") 
+print(" accuracy of Benign, Bot: ") 
 print(matrix.diagonal()/matrix.sum(axis=1))
 
 # print out False Alarm Rate 
