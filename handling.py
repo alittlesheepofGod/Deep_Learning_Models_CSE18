@@ -19,9 +19,9 @@ from sklearn.preprocessing import LabelEncoder
 # PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-22-2018.csv/02-22-2018.csv"
 # PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-28-2018.csv/02-28-2018.csv"
 # PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/03-01-2018.csv/03-01-2018.csv"
+# PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/03-02-2018.csv/03-02-2018.csv"
 
-PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/03-02-2018.csv/03-02-2018.csv"
-
+PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-28-2018.csv/02-28-2018.csv"
 
 # open dataset csv file by 'pandas'
 dataset = pd.read_csv(PATH_TO_DATASET)
@@ -33,6 +33,18 @@ dataset.tail()
 
 # shape of dataset
 print("shape of dataset is : ", dataset.shape)
+
+# select only rows with label = 'Benign'
+benign = dataset.loc[dataset['Label'] == 'Benign']
+
+# select only rows from 1 to 50000
+benign = benign[1:50000]
+
+# select only rows with label = 'Infilteration'
+infilteration = dataset.loc[dataset['Label'] == 'Infilteration']
+
+# concat two dataframe to form dataset 
+dataset = pd.concat([benign, infilteration], axis=0)
 
 # identify variables 
 dataset.dtypes 
@@ -148,7 +160,7 @@ plt.title('Intrusion Attack Type Distribution')
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-SlowHTTPTest', 'DoS attacks-Hulk'], colors = ['blue', 'green', 'yellow'])
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-SlowHTTPTest', 'DoS attacks-Hulk'], colors = ['blue', 'green', 'yellow'])
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'Brute Force -Web', 'Brute Force -XSS', 'SQL Injection'], colors = ['blue', 'green', 'yellow', 'pink'])
-plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'Bot'], colors = ['blue', 'green'])
+plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'Infilteration'], colors = ['blue', 'green'])
 
 p = plt.gcf()
 p.gca().add_artist(circle)
