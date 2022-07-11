@@ -1,0 +1,281 @@
+shape of dataset is :  (1048575, 80)
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1048575 entries, 0 to 1048574
+Data columns (total 80 columns):
+ #   Column             Non-Null Count    Dtype  
+---  ------             --------------    -----  
+ 0   Dst Port           1048575 non-null  int64  
+ 1   Protocol           1048575 non-null  int64  
+ 2   Timestamp          1048575 non-null  object 
+ 3   Flow Duration      1048575 non-null  int64  
+ 4   Tot Fwd Pkts       1048575 non-null  int64  
+ 5   Tot Bwd Pkts       1048575 non-null  int64  
+ 6   TotLen Fwd Pkts    1048575 non-null  int64  
+ 7   TotLen Bwd Pkts    1048575 non-null  int64  
+ 8   Fwd Pkt Len Max    1048575 non-null  int64  
+ 9   Fwd Pkt Len Min    1048575 non-null  int64  
+ 10  Fwd Pkt Len Mean   1048575 non-null  float64
+ 11  Fwd Pkt Len Std    1048575 non-null  float64
+ 12  Bwd Pkt Len Max    1048575 non-null  int64  
+ 13  Bwd Pkt Len Min    1048575 non-null  int64  
+ 14  Bwd Pkt Len Mean   1048575 non-null  float64
+ 15  Bwd Pkt Len Std    1048575 non-null  float64
+ 16  Flow Byts/s        1045006 non-null  float64
+ 17  Flow Pkts/s        1048575 non-null  float64
+ 18  Flow IAT Mean      1048575 non-null  float64
+ 19  Flow IAT Std       1048575 non-null  float64
+ 20  Flow IAT Max       1048575 non-null  int64  
+ 21  Flow IAT Min       1048575 non-null  int64  
+ 22  Fwd IAT Tot        1048575 non-null  int64  
+ 23  Fwd IAT Mean       1048575 non-null  float64
+ 24  Fwd IAT Std        1048575 non-null  float64
+ 25  Fwd IAT Max        1048575 non-null  int64  
+ 26  Fwd IAT Min        1048575 non-null  int64  
+ 27  Bwd IAT Tot        1048575 non-null  int64  
+ 28  Bwd IAT Mean       1048575 non-null  float64
+ 29  Bwd IAT Std        1048575 non-null  float64
+ 30  Bwd IAT Max        1048575 non-null  int64  
+ 31  Bwd IAT Min        1048575 non-null  int64  
+ 32  Fwd PSH Flags      1048575 non-null  int64  
+ 33  Bwd PSH Flags      1048575 non-null  int64  
+ 34  Fwd URG Flags      1048575 non-null  int64  
+ 35  Bwd URG Flags      1048575 non-null  int64  
+ 36  Fwd Header Len     1048575 non-null  int64  
+ 37  Bwd Header Len     1048575 non-null  int64  
+ 38  Fwd Pkts/s         1048575 non-null  float64
+ 39  Bwd Pkts/s         1048575 non-null  float64
+ 40  Pkt Len Min        1048575 non-null  int64  
+ 41  Pkt Len Max        1048575 non-null  int64  
+ 42  Pkt Len Mean       1048575 non-null  float64
+ 43  Pkt Len Std        1048575 non-null  float64
+ 44  Pkt Len Var        1048575 non-null  float64
+ 45  FIN Flag Cnt       1048575 non-null  int64  
+ 46  SYN Flag Cnt       1048575 non-null  int64  
+ 47  RST Flag Cnt       1048575 non-null  int64  
+ 48  PSH Flag Cnt       1048575 non-null  int64  
+ 49  ACK Flag Cnt       1048575 non-null  int64  
+ 50  URG Flag Cnt       1048575 non-null  int64  
+ 51  CWE Flag Count     1048575 non-null  int64  
+ 52  ECE Flag Cnt       1048575 non-null  int64  
+ 53  Down/Up Ratio      1048575 non-null  int64  
+ 54  Pkt Size Avg       1048575 non-null  float64
+ 55  Fwd Seg Size Avg   1048575 non-null  float64
+ 56  Bwd Seg Size Avg   1048575 non-null  float64
+ 57  Fwd Byts/b Avg     1048575 non-null  int64  
+ 58  Fwd Pkts/b Avg     1048575 non-null  int64  
+ 59  Fwd Blk Rate Avg   1048575 non-null  int64  
+ 60  Bwd Byts/b Avg     1048575 non-null  int64  
+ 61  Bwd Pkts/b Avg     1048575 non-null  int64  
+ 62  Bwd Blk Rate Avg   1048575 non-null  int64  
+ 63  Subflow Fwd Pkts   1048575 non-null  int64  
+ 64  Subflow Fwd Byts   1048575 non-null  int64  
+ 65  Subflow Bwd Pkts   1048575 non-null  int64  
+ 66  Subflow Bwd Byts   1048575 non-null  int64  
+ 67  Init Fwd Win Byts  1048575 non-null  int64  
+ 68  Init Bwd Win Byts  1048575 non-null  int64  
+ 69  Fwd Act Data Pkts  1048575 non-null  int64  
+ 70  Fwd Seg Size Min   1048575 non-null  int64  
+ 71  Active Mean        1048575 non-null  float64
+ 72  Active Std         1048575 non-null  float64
+ 73  Active Max         1048575 non-null  int64  
+ 74  Active Min         1048575 non-null  int64  
+ 75  Idle Mean          1048575 non-null  float64
+ 76  Idle Std           1048575 non-null  float64
+ 77  Idle Max           1048575 non-null  int64  
+ 78  Idle Min           1048575 non-null  int64  
+ 79  Label              1048575 non-null  object 
+dtypes: float64(24), int64(54), object(2)
+memory usage: 640.0+ MB
+None
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1048575 entries, 0 to 1048574
+Data columns (total 80 columns):
+ #   Column             Non-Null Count    Dtype  
+---  ------             --------------    -----  
+ 0   Dst Port           1048575 non-null  int64  
+ 1   Protocol           1048575 non-null  int64  
+ 2   Timestamp          1048575 non-null  object 
+ 3   Flow Duration      1048575 non-null  int64  
+ 4   Tot Fwd Pkts       1048575 non-null  int64  
+ 5   Tot Bwd Pkts       1048575 non-null  int64  
+ 6   TotLen Fwd Pkts    1048575 non-null  int64  
+ 7   TotLen Bwd Pkts    1048575 non-null  int64  
+ 8   Fwd Pkt Len Max    1048575 non-null  int64  
+ 9   Fwd Pkt Len Min    1048575 non-null  int64  
+ 10  Fwd Pkt Len Mean   1048575 non-null  float64
+ 11  Fwd Pkt Len Std    1048575 non-null  float64
+ 12  Bwd Pkt Len Max    1048575 non-null  int64  
+ 13  Bwd Pkt Len Min    1048575 non-null  int64  
+ 14  Bwd Pkt Len Mean   1048575 non-null  float64
+ 15  Bwd Pkt Len Std    1048575 non-null  float64
+ 16  Flow Byts/s        1045006 non-null  float64
+ 17  Flow Pkts/s        1048575 non-null  float64
+ 18  Flow IAT Mean      1048575 non-null  float64
+ 19  Flow IAT Std       1048575 non-null  float64
+ 20  Flow IAT Max       1048575 non-null  int64  
+ 21  Flow IAT Min       1048575 non-null  int64  
+ 22  Fwd IAT Tot        1048575 non-null  int64  
+ 23  Fwd IAT Mean       1048575 non-null  float64
+ 24  Fwd IAT Std        1048575 non-null  float64
+ 25  Fwd IAT Max        1048575 non-null  int64  
+ 26  Fwd IAT Min        1048575 non-null  int64  
+ 27  Bwd IAT Tot        1048575 non-null  int64  
+ 28  Bwd IAT Mean       1048575 non-null  float64
+ 29  Bwd IAT Std        1048575 non-null  float64
+ 30  Bwd IAT Max        1048575 non-null  int64  
+ 31  Bwd IAT Min        1048575 non-null  int64  
+ 32  Fwd PSH Flags      1048575 non-null  int64  
+ 33  Bwd PSH Flags      1048575 non-null  int64  
+ 34  Fwd URG Flags      1048575 non-null  int64  
+ 35  Bwd URG Flags      1048575 non-null  int64  
+ 36  Fwd Header Len     1048575 non-null  int64  
+ 37  Bwd Header Len     1048575 non-null  int64  
+ 38  Fwd Pkts/s         1048575 non-null  float64
+ 39  Bwd Pkts/s         1048575 non-null  float64
+ 40  Pkt Len Min        1048575 non-null  int64  
+ 41  Pkt Len Max        1048575 non-null  int64  
+ 42  Pkt Len Mean       1048575 non-null  float64
+ 43  Pkt Len Std        1048575 non-null  float64
+ 44  Pkt Len Var        1048575 non-null  float64
+ 45  FIN Flag Cnt       1048575 non-null  int64  
+ 46  SYN Flag Cnt       1048575 non-null  int64  
+ 47  RST Flag Cnt       1048575 non-null  int64  
+ 48  PSH Flag Cnt       1048575 non-null  int64  
+ 49  ACK Flag Cnt       1048575 non-null  int64  
+ 50  URG Flag Cnt       1048575 non-null  int64  
+ 51  CWE Flag Count     1048575 non-null  int64  
+ 52  ECE Flag Cnt       1048575 non-null  int64  
+ 53  Down/Up Ratio      1048575 non-null  int64  
+ 54  Pkt Size Avg       1048575 non-null  float64
+ 55  Fwd Seg Size Avg   1048575 non-null  float64
+ 56  Bwd Seg Size Avg   1048575 non-null  float64
+ 57  Fwd Byts/b Avg     1048575 non-null  int64  
+ 58  Fwd Pkts/b Avg     1048575 non-null  int64  
+ 59  Fwd Blk Rate Avg   1048575 non-null  int64  
+ 60  Bwd Byts/b Avg     1048575 non-null  int64  
+ 61  Bwd Pkts/b Avg     1048575 non-null  int64  
+ 62  Bwd Blk Rate Avg   1048575 non-null  int64  
+ 63  Subflow Fwd Pkts   1048575 non-null  int64  
+ 64  Subflow Fwd Byts   1048575 non-null  int64  
+ 65  Subflow Bwd Pkts   1048575 non-null  int64  
+ 66  Subflow Bwd Byts   1048575 non-null  int64  
+ 67  Init Fwd Win Byts  1048575 non-null  int64  
+ 68  Init Bwd Win Byts  1048575 non-null  int64  
+ 69  Fwd Act Data Pkts  1048575 non-null  int64  
+ 70  Fwd Seg Size Min   1048575 non-null  int64  
+ 71  Active Mean        1048575 non-null  float64
+ 72  Active Std         1048575 non-null  float64
+ 73  Active Max         1048575 non-null  int64  
+ 74  Active Min         1048575 non-null  int64  
+ 75  Idle Mean          1048575 non-null  float64
+ 76  Idle Std           1048575 non-null  float64
+ 77  Idle Max           1048575 non-null  int64  
+ 78  Idle Min           1048575 non-null  int64  
+ 79  Label              1048575 non-null  object 
+dtypes: float64(24), int64(54), object(2)
+memory usage: 640.0+ MB
+None
+shape of dataset :  (1048575, 80)
+
+
+the number of values for labels :  Benign              1048213
+Brute Force -Web        249
+Brute Force -XSS         79
+SQL Injection            34
+Name: Label, dtype: int64
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv1d (Conv1D)             (None, 72, 64)            256       
+                                                                 
+ conv1d_1 (Conv1D)           (None, 72, 128)           8320      
+                                                                 
+ max_pooling1d (MaxPooling1D  (None, 72, 128)          0         
+ )                                                               
+                                                                 
+ conv1d_2 (Conv1D)           (None, 72, 128)           16512     
+                                                                 
+ batch_normalization (BatchN  (None, 72, 128)          512       
+ ormalization)                                                   
+                                                                 
+ max_pooling1d_1 (MaxPooling  (None, 72, 128)          0         
+ 1D)                                                             
+                                                                 
+ conv1d_3 (Conv1D)           (None, 72, 128)           16512     
+                                                                 
+ batch_normalization_1 (Batc  (None, 72, 128)          512       
+ hNormalization)                                                 
+                                                                 
+ max_pooling1d_2 (MaxPooling  (None, 72, 128)          0         
+ 1D)                                                             
+                                                                 
+ conv1d_4 (Conv1D)           (None, 72, 128)           16512     
+                                                                 
+ batch_normalization_2 (Batc  (None, 72, 128)          512       
+ hNormalization)                                                 
+                                                                 
+ max_pooling1d_3 (MaxPooling  (None, 72, 128)          0         
+ 1D)                                                             
+                                                                 
+ conv1d_5 (Conv1D)           (None, 72, 128)           16512     
+                                                                 
+ batch_normalization_3 (Batc  (None, 72, 128)          512       
+ hNormalization)                                                 
+                                                                 
+ max_pooling1d_4 (MaxPooling  (None, 72, 128)          0         
+ 1D)                                                             
+                                                                 
+ conv1d_6 (Conv1D)           (None, 72, 128)           16512     
+                                                                 
+ batch_normalization_4 (Batc  (None, 72, 128)          512       
+ hNormalization)                                                 
+                                                                 
+ max_pooling1d_5 (MaxPooling  (None, 72, 128)          0         
+ 1D)                                                             
+                                                                 
+ conv1d_7 (Conv1D)           (None, 72, 128)           16512     
+                                                                 
+ batch_normalization_5 (Batc  (None, 72, 128)          512       
+ hNormalization)                                                 
+                                                                 
+ max_pooling1d_6 (MaxPooling  (None, 72, 128)          0         
+ 1D)                                                             
+                                                                 
+ conv1d_8 (Conv1D)           (None, 72, 128)           16512     
+                                                                 
+ batch_normalization_6 (Batc  (None, 72, 128)          512       
+ hNormalization)                                                 
+                                                                 
+ max_pooling1d_7 (MaxPooling  (None, 72, 128)          0         
+ 1D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 9216)              0         
+                                                                 
+ dense (Dense)               (None, 128)               1179776   
+                                                                 
+ batch_normalization_7 (Batc  (None, 128)              512       
+ hNormalization)                                                 
+                                                                 
+ dense_1 (Dense)             (None, 128)               16512     
+                                                                 
+ batch_normalization_8 (Batc  (None, 128)              512       
+ hNormalization)                                                 
+                                                                 
+ dense_2 (Dense)             (None, 4)                 516       
+                                                                 
+=================================================================
+Total params: 1,325,572
+Trainable params: 1,323,268
+Non-trainable params: 2,304
+_________________________________________________________________
+  1/500 [..............................] - ETA: 2:40 - loss: 0.1529 - accuracy: 0.8438 13/500 [..............................] - ETA: 2s - loss: 0.1861 - accuracy: 0.8774   26/500 [>.............................] - ETA: 1s - loss: 0.1920 - accuracy: 0.8714 37/500 [=>............................] - ETA: 2s - loss: 0.1990 - accuracy: 0.8649 51/500 [==>...........................] - ETA: 1s - loss: 0.1916 - accuracy: 0.8695 64/500 [==>...........................] - ETA: 1s - loss: 0.2064 - accuracy: 0.8633 76/500 [===>..........................] - ETA: 1s - loss: 0.2094 - accuracy: 0.8651 90/500 [====>.........................] - ETA: 1s - loss: 0.2124 - accuracy: 0.8608 98/500 [====>.........................] - ETA: 1s - loss: 0.2154 - accuracy: 0.8591108/500 [=====>........................] - ETA: 1s - loss: 0.2143 - accuracy: 0.8582118/500 [======>.......................] - ETA: 1s - loss: 0.2159 - accuracy: 0.8565130/500 [======>.......................] - ETA: 1s - loss: 0.2190 - accuracy: 0.8548142/500 [=======>......................] - ETA: 1s - loss: 0.2223 - accuracy: 0.8532156/500 [========>.....................] - ETA: 1s - loss: 0.2187 - accuracy: 0.8536171/500 [=========>....................] - ETA: 1s - loss: 0.2195 - accuracy: 0.8534184/500 [==========>...................] - ETA: 1s - loss: 0.2218 - accuracy: 0.8528197/500 [==========>...................] - ETA: 1s - loss: 0.2232 - accuracy: 0.8515211/500 [===========>..................] - ETA: 1s - loss: 0.2226 - accuracy: 0.8512225/500 [============>.................] - ETA: 1s - loss: 0.2200 - accuracy: 0.8535237/500 [=============>................] - ETA: 1s - loss: 0.2227 - accuracy: 0.8513249/500 [=============>................] - ETA: 1s - loss: 0.2232 - accuracy: 0.8508260/500 [==============>...............] - ETA: 1s - loss: 0.2232 - accuracy: 0.8502272/500 [===============>..............] - ETA: 0s - loss: 0.2233 - accuracy: 0.8498285/500 [================>.............] - ETA: 0s - loss: 0.2209 - accuracy: 0.8501298/500 [================>.............] - ETA: 0s - loss: 0.2201 - accuracy: 0.8501311/500 [=================>............] - ETA: 0s - loss: 0.2207 - accuracy: 0.8496324/500 [==================>...........] - ETA: 0s - loss: 0.2192 - accuracy: 0.8500336/500 [===================>..........] - ETA: 0s - loss: 0.2185 - accuracy: 0.8500349/500 [===================>..........] - ETA: 0s - loss: 0.2174 - accuracy: 0.8503362/500 [====================>.........] - ETA: 0s - loss: 0.2168 - accuracy: 0.8503375/500 [=====================>........] - ETA: 0s - loss: 0.2173 - accuracy: 0.8499389/500 [======================>.......] - ETA: 0s - loss: 0.2177 - accuracy: 0.8497403/500 [=======================>......] - ETA: 0s - loss: 0.2167 - accuracy: 0.8498417/500 [========================>.....] - ETA: 0s - loss: 0.2147 - accuracy: 0.8506431/500 [========================>.....] - ETA: 0s - loss: 0.2150 - accuracy: 0.8506445/500 [=========================>....] - ETA: 0s - loss: 0.2162 - accuracy: 0.8501459/500 [==========================>...] - ETA: 0s - loss: 0.2167 - accuracy: 0.8499472/500 [===========================>..] - ETA: 0s - loss: 0.2157 - accuracy: 0.8503485/500 [============================>.] - ETA: 0s - loss: 0.2152 - accuracy: 0.8502497/500 [============================>.] - ETA: 0s - loss: 0.2155 - accuracy: 0.8502500/500 [==============================] - 2s 4ms/step - loss: 0.2162 - accuracy: 0.8496
+accuracy: 84.96%
+  1/500 [..............................] - ETA: 1:27 18/500 [>.............................] - ETA: 1s   36/500 [=>............................] - ETA: 1s 53/500 [==>...........................] - ETA: 1s 69/500 [===>..........................] - ETA: 1s 86/500 [====>.........................] - ETA: 1s104/500 [=====>........................] - ETA: 1s124/500 [======>.......................] - ETA: 1s140/500 [=======>......................] - ETA: 1s159/500 [========>.....................] - ETA: 0s175/500 [=========>....................] - ETA: 0s193/500 [==========>...................] - ETA: 0s212/500 [===========>..................] - ETA: 0s231/500 [============>.................] - ETA: 0s249/500 [=============>................] - ETA: 0s266/500 [==============>...............] - ETA: 0s284/500 [================>.............] - ETA: 0s302/500 [=================>............] - ETA: 0s320/500 [==================>...........] - ETA: 0s337/500 [===================>..........] - ETA: 0s355/500 [====================>.........] - ETA: 0s372/500 [=====================>........] - ETA: 0s389/500 [======================>.......] - ETA: 0s407/500 [=======================>......] - ETA: 0s425/500 [========================>.....] - ETA: 0s443/500 [=========================>....] - ETA: 0s461/500 [==========================>...] - ETA: 0s478/500 [===========================>..] - ETA: 0s496/500 [============================>.] - ETA: 0s500/500 [==============================] - 2s 3ms/step
+dict_keys(['loss', 'accuracy', 'val_loss', 'val_accuracy'])
+ accuracy of Benign, Brute Force -Web, Brute Force -XSS, SQL Injection: 
+[0.95843703 0.97839961 0.87578894 0.57968077]
+False Alarm Rate is : 
+0.04156296665007466
+Detection Rate is : 
+0.8131363712235019

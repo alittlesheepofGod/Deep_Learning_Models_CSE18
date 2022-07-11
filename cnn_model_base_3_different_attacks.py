@@ -96,7 +96,7 @@ def model():
     model.add(BatchNormalization())
     model.add(Dense(128, activation='relu'))
     model.add(BatchNormalization())
-    model.add(Dense(3, activation='softmax'))
+    model.add(Dense(4, activation='softmax'))  # number of node in dense layer represent for number of classes to classification
 
     opt = SGD(lr = 0.01, momentum = 0.9, decay = 0.01)
     # opt = Adagrad()
@@ -129,7 +129,8 @@ import numpy as np
 y_pred = model.predict(X_test)
 # labels = ["Benign", "DoS attacks-GoldenEye", "DoS attacks-Slowloris"]
 # labels = ["Benign", "DoS attacks-SlowHTTPTest", "DoS attacks-Hulk"]
-labels = ["Benign", "DDOS attacks-LOIC-UDP", "DDOS attack-HOIC"]
+# labels = ["Benign", "DDOS attacks-LOIC-UDP", "DDOS attack-HOIC"]
+labels = ["Benign", "Brute Force -Web", "Brute Force -XSS", "SQL Injection"]
 
 # convert to categorical 
 from keras.utils.np_utils import to_categorical
@@ -175,7 +176,7 @@ plt.show()
 matrix = confusion_matrix(y_test, y_predict)
 # print("accuracy of benign, DoS attacks-SlowHTTPTest, DoS attacks-Hulk")
 # print("accuracy of benign, DoS attacks-LOIC-HTTP")
-print(" accuracy of Benign, DDOS attacks-LOIC-UDP, DDOS attack-HOIC: ")
+print(" accuracy of Benign, Brute Force -Web, Brute Force -XSS, SQL Injection: ") 
 print(matrix.diagonal()/matrix.sum(axis=1))
 
 # print out False Alarm Rate 

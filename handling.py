@@ -99,6 +99,7 @@ dataset['Label'].unique()
 data_0 = dataset[dataset['Label'] == 0]
 data_1 = dataset[dataset['Label'] == 1]
 data_2 = dataset[dataset['Label'] == 2]
+data_3 = dataset[dataset['Label'] == 3]
 
 # make benign feature 
 y_0 = np.zeros(data_0.shape[0])
@@ -109,13 +110,17 @@ y_1 = np.ones(data_1.shape[0])
 y_attack_1 = pd.DataFrame(y_1)
 y_2 = np.ones(data_2.shape[0])
 y_attack_2 = pd.DataFrame(y_2)
+y_3 = np.ones(data_3.shape[0])
+y_attack_3 = pd.DataFrame(y_3)
 
 # merging the original dataframe 
-X = pd.concat([data_0, data_1, data_2], sort = True)
+# X = pd.concat([data_0, data_1, data_2], sort = True)
 # X = pd.concat([data_0, data_1], sort = True)
+X = pd.concat([data_0, data_1, data_2, data_3], sort = True)
 
-y = pd.concat([y_benign, y_attack_1, y_attack_2], sort = True)
+# y = pd.concat([y_benign, y_attack_1, y_attack_2], sort = True)
 # y = pd.concat([y_benign, y_attack_1], sort = True)
+y = pd.concat([y_benign, y_attack_1, y_attack_2, y_attack_3], sort = True)
 
 # Data augmentation 
 
@@ -124,8 +129,10 @@ from sklearn.utils import resample
 data_0_resample = resample(data_0, n_samples = 20000, random_state = 123, replace = True)
 data_1_resample = resample(data_1, n_samples = 20000, random_state = 123, replace = True)
 data_2_resample = resample(data_2, n_samples = 20000, random_state = 123, replace = True)
+data_3_resample = resample(data_3, n_samples = 20000, random_state = 123, replace = True)
 
-train_dataset = pd.concat([data_0_resample, data_1_resample, data_2_resample])
+# train_dataset = pd.concat([data_0_resample, data_1_resample, data_2_resample])
+train_dataset = pd.concat([data_0_resample, data_1_resample, data_2_resample, data_3_resample])
 # train_dataset = pd.concat([data_0_resample, data_1_resample])
 train_dataset.head(2)
 
@@ -137,7 +144,7 @@ plt.title('Intrusion Attack Type Distribution')
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-GoldenEye', 'DoS attacks-Slowloris'], colors = ['blue', 'green', 'yellow'])
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-SlowHTTPTest', 'DoS attacks-Hulk'], colors = ['blue', 'green', 'yellow'])
 # plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DoS attacks-SlowHTTPTest', 'DoS attacks-Hulk'], colors = ['blue', 'green', 'yellow'])
-plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'DDOS attacks-LOIC-UDP', 'DDOS attack-HOIC'], colors = ['blue', 'green', 'yellow'])
+plt.pie(train_dataset['Label'].value_counts(), labels = ['Benign', 'Brute Force -Web', 'Brute Force -XSS', 'SQL Injection'], colors = ['blue', 'green', 'yellow', 'pink'])
 
 p = plt.gcf()
 p.gca().add_artist(circle)
@@ -148,8 +155,8 @@ target_train = train_dataset['Label']
 target_test = test_dataset['Label']
 target_train.unique(), target_test.unique()
 
-y_train = to_categorical(target_train, num_classes = 3)
-y_test = to_categorical(target_test, num_classes = 3)
+y_train = to_categorical(target_train, num_classes = 4)
+y_test = to_categorical(target_test, num_classes = 4)
 
 # Data Splicing 
 # data into train & test sets. training data used for training model, test data used 
