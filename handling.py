@@ -34,17 +34,17 @@ dataset.tail()
 # shape of dataset
 print("shape of dataset is : ", dataset.shape)
 
-# select only rows with label = 'Benign'
-benign = dataset.loc[dataset['Label'] == 'Benign']
+# # select only rows with label = 'Benign'
+# benign = dataset.loc[dataset['Label'] == 'Benign']
 
-# select only rows from 1 to 50000
-benign = benign[1:50000]
+# # select only rows from 1 to 50000
+# benign = benign[1:70000]
 
-# select only rows with label = 'Infilteration'
-infilteration = dataset.loc[dataset['Label'] == 'Infilteration']
+# # select only rows with label = 'Infilteration'
+# infilteration = dataset.loc[dataset['Label'] == 'Infilteration']
 
-# concat two dataframe to form dataset 
-dataset = pd.concat([benign, infilteration], axis=0)
+# # concat two dataframe to form dataset 
+# dataset = pd.concat([benign, infilteration], axis=0)
 
 # identify variables 
 dataset.dtypes 
@@ -141,6 +141,8 @@ y = pd.concat([y_benign, y_attack_1], sort = True)
 
 from sklearn.utils import resample 
 
+# data_0_resample = resample(data_0, n_samples = 20000, random_state = 123, replace = True)
+# data_1_resample = resample(data_1, n_samples = 20000, random_state = 123, replace = True)
 data_0_resample = resample(data_0, n_samples = 20000, random_state = 123, replace = True)
 data_1_resample = resample(data_1, n_samples = 20000, random_state = 123, replace = True)
 # data_2_resample = resample(data_2, n_samples = 20000, random_state = 123, replace = True)
@@ -148,6 +150,8 @@ data_1_resample = resample(data_1, n_samples = 20000, random_state = 123, replac
 
 # train_dataset = pd.concat([data_0_resample, data_1_resample, data_2_resample])
 # train_dataset = pd.concat([data_0_resample, data_1_resample, data_2_resample, data_3_resample])
+# train_dataset = pd.concat([data_0_resample, data_1_resample])
+# train_dataset = pd.concat([data_0_resample, data_1_resample])
 train_dataset = pd.concat([data_0_resample, data_1_resample])
 train_dataset.head(2)
 
@@ -181,20 +185,44 @@ y_test = to_categorical(target_test, num_classes = 2)
 # data into train & test sets. training data used for training model, test data used 
 # to check the performance of model on unseen dataset. 
 # 80% for training and 20% for testing purpose.
-# train_dataset = train_dataset.drop(columns = ["Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
-# test_dataset = test_dataset.drop(columns = ["Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
+train_dataset = train_dataset.drop(columns = ["Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
+test_dataset = test_dataset.drop(columns = ["Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
 
 # train_dataset = train_dataset.drop(columns = ["Flow ID", "Dst IP", "Src IP" ,"Src Port", "Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
 # test_dataset = test_dataset.drop(columns = ["Flow ID" , "Dst IP", "Src IP" ,"Src Port", "Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
-
-train_dataset = train_dataset.drop(columns = ["Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
-test_dataset = test_dataset.drop(columns = ["Timestamp", "Protocol","PSH Flag Cnt","Init Fwd Win Byts","Flow Byts/s","Flow Pkts/s", "Label"], axis = 1)
 
 # making train & test splits 
 X_train = train_dataset.iloc[:, : -1].values 
 X_test = test_dataset.iloc[:, : -1].values 
 
+# X_train = train_dataset.iloc[:, : -1] 
+# X_test = test_dataset.iloc[:, : -1]
+
 # reshape the data for CNN 
 X_train = X_train.reshape(len(X_train), X_train.shape[1], 1)
 X_test = X_test.reshape(len(X_test), X_test.shape[1], 1)
+
+# # view data
+# display(X_train)
+
+
+# import matplotlib.pyplot as plt 
+
+# X_train.plot(kind= 'bar')
+
+# # copy the data 
+# df_max_scaled = X_train.copy()
+
+# # apply normalization techniques 
+# for column in df_max_scaled.columns:
+#     df_max_scaled[column] = df_max_scaled[column] / df_max_scaled[column].abs().max()
+
+# # view normalized data 
+# display(df_max_scaled)
+
+# import matplotlib.pyplot as plt 
+# df_max_scaled.plot(kind='bar')
+
+
+
 
