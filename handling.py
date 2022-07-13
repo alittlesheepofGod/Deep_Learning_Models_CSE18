@@ -23,8 +23,9 @@ from sklearn.preprocessing import LabelEncoder
 
 # PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/02-28-2018.csv/02-28-2018.csv"
 
-PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/03-01-2018.csv/03-01-2018.csv"
+# PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/03-01-2018.csv/03-01-2018.csv"
 
+PATH_TO_DATASET = "/mnt/d/project/dataset/cse-cic-ids2018/03-01-2018.csv/new_infilteration_data.csv"
 
 # open dataset csv file by 'pandas'
 dataset = pd.read_csv(PATH_TO_DATASET)
